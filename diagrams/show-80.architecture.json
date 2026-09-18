@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Show de los 80 · Arquitectura",
+    "output": "show-80-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "git@github.com-profesional:GUScode-apps/Show_80.git",
+      "link_mode": "local-only",
+      "revision": "645287bf4507d440cb7b7687f259e5745407a6bc"
+    },
+    "viewBox": [1120, 620],
+    "views": [
+      { "id": "registro", "label": "Flujo de registro", "focus": ["participants", "site", "forms", "sheets"], "note": "El visitante cae en el formulario de Google y sus datos se almacenan en la hoja de cálculo." },
+      { "id": "publicacion", "label": "Sitio publicado", "focus": ["gh-pages", "site", "participants"], "note": "GitHub Pages sirve los archivos estáticos del sitio." }
+    ]
+  },
+  "components": [
+    { "id": "participants", "type": "external", "label": "Participantes", "sublabel": "Navegador móvil / escritorio", "pos": [50, 290], "size": [150, 60] },
+    { "id": "site", "type": "frontend", "label": "Sitio Show de los 80", "sublabel": "HTML + CSS estático", "pos": [340, 150], "size": [160, 66], "sources": [{ "path": "index.html", "line": 1, "label": "Landing page" }] },
+    { "id": "gh-pages", "type": "cloud", "label": "GitHub Pages", "sublabel": "Hosting del sitio", "pos": [340, 330], "size": [160, 60] },
+    { "id": "forms", "type": "external", "label": "Google Forms", "sublabel": "Formulario de registro", "pos": [640, 150], "size": [160, 66], "sources": [{ "path": "index.html", "line": 125, "label": "Botón de registro" }] },
+    { "id": "sheets", "type": "database", "label": "Google Sheets", "sublabel": "Base de datos de inscritos", "pos": [640, 330], "size": [160, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "GitHub", "wraps": ["site", "gh-pages"], "pad": 22 },
+    { "kind": "region", "label": "Google Workspace", "wraps": ["forms", "sheets"], "pad": 22 }
+  ],
+  "connections": [
+    { "id": "visit", "from": "participants", "to": "site", "label": "visita", "variant": "emphasis" },
+    { "id": "serve", "from": "gh-pages", "to": "site", "label": "sirve HTML/CSS", "variant": "dashed" },
+    { "id": "register", "from": "site", "to": "forms", "label": "botón de registro" },
+    { "id": "store", "from": "forms", "to": "sheets", "label": "guarda respuestas", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Acceso", "items": ["El visitante abre el sitio desde cualquier navegador", "Sin backend propio: solo archivos estáticos"] },
+    { "dot": "emerald", "title": "Publicación", "items": ["GitHub Pages despliega el repositorio como site", "HTML + CSS vinculados en index.html y css/styles.css"] },
+    { "dot": "violet", "title": "Registro de datos", "items": ["Google Forms captura los datos de forma segura", "Las respuestas se guardan en una hoja Google Sheets"] }
+  ]
+}
